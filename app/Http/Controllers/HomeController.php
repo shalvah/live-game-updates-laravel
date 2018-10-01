@@ -17,7 +17,7 @@ class HomeController extends Controller
     {
         $game = Game::find($id);
         $updates = $game->updates;
-        return view('games', ['game' => $game, 'updates' => $updates]);
+        return view('game', ['game' => $game, 'updates' => $updates]);
     }
 
     public function startGame()
