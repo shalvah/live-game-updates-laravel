@@ -6,13 +6,13 @@ const app = new Vue({
     el: '#main',
 
     data: {
-            updates,
-            game,
-            pendingUpdate: {
-                minute: '',
-                type: '',
-                description: ''
-            }
+        updates,
+        game,
+        pendingUpdate: {
+            minute: '',
+            type: '',
+            description: ''
+        }
     },
 
     methods: {
@@ -48,3 +48,19 @@ const app = new Vue({
         }
     }
 });
+
+window.Pusher = require('pusher-js');
+Pusher.logToConsole = true;
+
+const pusher = new Pusher(process.env.MIX_PUSHER_APP_KEY, {
+    cluster: process.env.MIX_PUSHER_APP_CLUSTER
+});
+
+pusher.subscribe(`game-updates-${app.game.id}`)
+    .bind('event', (data) => {
+        app.updates.unshift(data);
+    })
+    .bind('score', (data) => {
+        app.game.first_team_score = data.first_team_score;
+        app.game.second_team_score = data.second_team_score;
+    });
