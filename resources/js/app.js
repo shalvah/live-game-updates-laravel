@@ -1,22 +1,50 @@
-
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
 require('./bootstrap');
 
 window.Vue = require('vue');
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
-
 const app = new Vue({
-    el: '#app'
+    el: '#main',
+
+    data: {
+            updates,
+            game,
+            pendingUpdate: {
+                minute: '',
+                type: '',
+                description: ''
+            }
+    },
+
+    methods: {
+        updateGame(event) {
+            event.preventDefault();
+            axios.post(`/games/${this.game.id}`, this.pendingUpdate)
+                .then(response => {
+                    console.log(response);
+                    this.updates.unshift(response.data);
+                    this.pendingUpdate = {};
+                });
+        },
+
+        updateScore() {
+            const data = {
+                first_team_score: this.game.first_team_score,
+                second_team_score: this.game.second_team_score,
+            };
+            axios.post(`/games/${this.game.id}/score`, data)
+                .then(response => {
+                    console.log(response)
+                });
+        },
+
+        updateFirstTeamScore(event) {
+            this.game.first_team_score = event.target.innerText;
+            this.updateScore();
+        },
+
+        updateSecondTeamScore(event) {
+            this.game.second_team_score = event.target.innerText;
+            this.updateScore();
+        }
+    }
 });
