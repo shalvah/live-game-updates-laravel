@@ -12,4 +12,10 @@ class Game extends Model
     {
         return Update::orderBy('id desc')->where('game_id', '=', $this->id)->get();
     }
+
+    // return the game score in the format "TeamA 1 - 0 TeamB"
+    public function getScoreAttribute()
+    {
+        return "$this->first_team $this->first_team_score - $this->second_team $this->second_team_score";
+    }
 }
