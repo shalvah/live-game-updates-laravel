@@ -10,29 +10,32 @@
         @auth
             <div class="card">
                 <div class="card-body">
-            <form v-on:submit="updateGame">
-                <h6>Post a new game update</h6>
-                <input class="form-control" type="number" id="minute" v-model="pendingUpdate.minute" placeholder="In what minute did this happen?">
+                    <form v-on:submit="updateGame">
+                        <h6>Post a new game update</h6>
+                        <input class="form-control" type="number" id="minute" v-model="pendingUpdate.minute"
+                               placeholder="In what minute did this happen?">
 
-                <input class="form-control" id="type" placeholder="Event type (goal, foul, injury, booking...)" v-model="pendingUpdate.type">
+                        <input class="form-control" id="type" placeholder="Event type (goal, foul, injury, booking...)"
+                               v-model="pendingUpdate.type">
 
-                <input class="form-control" id="description" placeholder="Add a description or comment..." v-model="pendingUpdate.description">
+                        <input class="form-control" id="description" placeholder="Add a description or comment..."
+                               v-model="pendingUpdate.description">
 
-                <button type="submit" class="btn btn-primary">Post update</button>
-            </form>
+                        <button type="submit" class="btn btn-primary">Post update</button>
+                    </form>
                 </div>
             </div>
         @endauth
         <br>
         <h4>Game updates</h4>
-            <div class="card-body" v-for="update in updates">
-                    <div class="card-title">
-                        <h5>@{{ update.type }}</h5>
-                    </div>
-                    <div class="card-text">
-                        @{{ update.comment }}
-                    </div>
-                </div>
+        <div class="card-body" v-for="update in updates">
+            <div class="card-title">
+                <h5>@{{ update.type }} (@{{ update.minute }}')</h5>
+            </div>
+            <div class="card-text">
+                @{{ update.description }}
+            </div>
+        </div>
     </div>
     <script>
         window.updates = @json($updates);
