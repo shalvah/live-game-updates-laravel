@@ -33,4 +33,11 @@ class HomeController extends Controller
         $update = Update::create($data);
         return response()->json($update);
     }
+
+    public function updateScore(int $id)
+    {
+        $data = request()->all();
+        Game::where('id', $id)->update($data);
+        return response()->json();
+    }
 }
