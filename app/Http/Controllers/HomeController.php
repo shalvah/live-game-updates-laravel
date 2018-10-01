@@ -2,27 +2,35 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Game;
+use App\Update;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        return view('home');
+        $games = Game::all();
+        return view('games', ['games' => $games]);
+    }
+
+    public function viewGame(int $id)
+    {
+        $game = Game::find($id);
+        $updates = $game->updates;
+        return view('games', ['game' => $game, 'updates' => $updates]);
+    }
+
+    public function startGame()
+    {
+        $game = Game::create(request()->all());
+        return redirect("/games/$game->id");
+    }
+
+    public function updateGame(int $id)
+    {
+        $data = request()->all();
+        $data['game_id'] = $id;
+        $update = Update::create($data);
+        return response()->json($update);
     }
 }
