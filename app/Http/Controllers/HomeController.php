@@ -10,7 +10,7 @@ class HomeController extends Controller
     public function index()
     {
         $games = Game::all();
-        return view('games', ['games' => $games]);
+        return view('home', ['games' => $games]);
     }
 
     public function viewGame(int $id)

@@ -1,23 +1,29 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
-
+    <div class="container">
+        <h2>Ongoing games</h2>
+        @auth
+            <form method="post" action="{{ url('/games') }}" class="form-inline">
+                @csrf
+                <input class="form-control" name="first_team" placeholder="First team" required>
+                <input class="form-control" name="second_team" placeholder="Second team" required>
+                <input type="hidden" name="first_team_score" value="0">
+                <input type="hidden" name="second_team_score" value="0">
+                <button type="submit" class="btn btn-primary">Start new game</button>
+            </form>
+        @endauth
+        <br>
+        @forelse($games as $game)
+            <a class="card bg-dark" href="/games/{{ $game->id }}">
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    You are logged in!
+                    <div class="card-title">
+                        <h4>{{ $game->score }}</h4>
+                    </div>
                 </div>
-            </div>
-        </div>
+            </a>
+        @empty
+            No games in progress.
+        @endforelse
     </div>
-</div>
 @endsection
