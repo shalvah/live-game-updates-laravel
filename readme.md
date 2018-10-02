@@ -1,6 +1,8 @@
 # live-game-updates-laravel
 
-Realtime app for following game scores and events in realtime
+Realtime app for following sports game scores and events in realtime. This app provides a backend for an admin to log in and publish updates on ongoing games, and a frontend that allows users to follow a game's progress in realtime.
+
+View tutorial [here]()
 
 ## Prerequisites
 - PHP >= 7.1.3
