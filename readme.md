@@ -26,6 +26,13 @@ PUSHER_APP_SECRET=your-app-secret
 PUSHER_APP_CLUSTER=your-app-cluster
 ```
 
+Create a file called `database.sqlite` in the `database` folder.
+
+Start the app by running
+```bash
+php artisan serve
+```
+
 ## Built With
 
 * [Pusher](https://pusher.com/) - APIs to enable devs building realtime features
