@@ -2,7 +2,7 @@
 
 Realtime app for following sports game scores and events in realtime. This app provides a backend for an admin to log in and publish updates on ongoing games, and a frontend that allows users to follow a game's progress in realtime.
 
-View tutorial [here]()
+View tutorial [here](https://pusher.com/tutorials/live-game-laravel)
 
 ## Prerequisites
 - PHP >= 7.1.3
